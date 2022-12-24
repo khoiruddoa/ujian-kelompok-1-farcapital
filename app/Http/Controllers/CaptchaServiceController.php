@@ -16,10 +16,10 @@ class CaptchaServiceController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'alamat' => 'required',
-            'Nomor telepon' => 'required',
+            'addreess' => 'required',
+            'telephone' => 'required',
             'photo' => 'required',
-            'pesan' => 'required',
+            'message' => 'required',
             'captcha' => 'required|captcha'
         ]);
     }
