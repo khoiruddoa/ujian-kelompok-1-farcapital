@@ -28,9 +28,35 @@
             <label for="message">Pesan</label>
             <textarea  class="form-control" name="message" id="message" rows="3" rows="10"></textarea>
           </div>
+
+             <div class="form-group mt-4 mb-4">
+                <div class="captcha">
+                    <span>{!! captcha_img() !!}</span>
+                    <button type="button" class="btn btn-danger" class="reload" id="reload">
+                        &#x21bb;
+                    </button>
+                </div>
+            </div>
+            <div class="form-group mb-4">
+                <input id="captcha" type="text" class="form-control" placeholder="Enter Captcha" name="captcha">
+            </div>
+
         <img id="output">
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+
+      <script type="text/javascript">
+    $('#reload').click(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'reload-captcha',
+            success: function (data) {
+                $(".captcha span").html(data.captcha);
+            }
+        });
+    });
+</script>
+
     <script>
         var loadFile = function(event) {
         var output = document.getElementById('output');
