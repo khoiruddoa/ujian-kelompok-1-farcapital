@@ -15,17 +15,16 @@ class AspirationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { {
+    {
 
-            $aspirations = Aspiration::orderBy('created_at', 'DESC')->get();
+        $aspirations = Aspiration::orderBy('created_at', 'DESC')->get();
 
-            return response()->json([
+        return response()->json([
 
-                "status" => true,
-                "message" => "data Book",
-                "data" => $aspirations
-            ]);
-        }
+            "status" => true,
+            "message" => "data Book",
+            "data" => $aspirations
+        ]);
     }
 
     /**
@@ -92,7 +91,8 @@ class AspirationController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function update(Request $request, $id)
+
+    function update(Request $request, $id)
     {
         $status = Aspiration::find($id);
 
