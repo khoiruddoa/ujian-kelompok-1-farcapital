@@ -91,6 +91,7 @@ class AspirationController extends Controller
      * @return \Illuminate\Http\Response
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 =======
@@ -98,8 +99,10 @@ class AspirationController extends Controller
 >>>>>>> 088ab00 ((+)menambahkan fitur update di controller)
     function update(Request $request, $id)
 =======
+=======
+
+>>>>>>> b5f5c21 (solve conflict)
     public function update(Request $request, $id)
->>>>>>> cba8ab0 ((+)menambahkan fitur update di controller)
     {
         $status = Aspiration::find($id);
 
