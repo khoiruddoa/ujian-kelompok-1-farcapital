@@ -57,12 +57,12 @@ Route::get('/dashboard/aspiration', function () {
     ]);
 })->name("aspiration");
 
-Route::get('/dashboard/aspiration/create', function () {
-    return view('dashboard.aspiration.create', [
-        "title" => "create",
-        'active' => 'create',
+Route::get('/dashboard/aspiration/detail', function () {
+    return view('dashboard.aspiration.detail', [
+        "title" => "detail",
+        'active' => 'detail',
     ]);
-})->name("aspiration.create");
+})->name("aspiration.detail");
 
 Route::get('/dashboard/register', function () {
     return view('dashboard.register.index', [
