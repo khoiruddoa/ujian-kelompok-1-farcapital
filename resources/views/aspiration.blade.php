@@ -36,12 +36,15 @@
                 </button>
             </div>
         </div>
+        
         <div class="form-group mb-4">
             <input id="captcha" type="text" class="form-control" placeholder="Enter Captcha" name="captcha">
         </div>
 
     <img id="output">
     <button onclick="add()" class="btn btn-primary">Submit</button>
+
+    </form>
 
       <script type="text/javascript">
     $('#reload').click(function () {
