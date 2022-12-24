@@ -17,14 +17,62 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">photo</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Email</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tabel-aspiration">
 
             </tbody>
         </table>
     </div>
+    <script type="text/javascript">
+        $.ajax({
+            url : "http://127.0.0.1:8000/api/aspiration",
+            method : "GET",
+            dataType : "json",
+            beforeSend : function() {
+                let loader = true;
+            },
+            success : response => {
+                let listAspiration = response.data
+                let htmlString = ""
+                for(let aspiration of listAspiration) {
+                    htmlString += `
+                    <tr>
+                        <td>${ $loop->iteration }</td>
+                        <td>
+                            <img src="/storage/images/${aspiration.photo}" width="200" height="200">
+                        </td>
+                        <td>${aspiration.name}</td>
+                        <td>${aspiration.status}</td>
+                        <td>
+                            <a href="http://127.0.0.1:8000/dashboard/aspiration/detail/${aspiration.id}">
+                                <button>Detail</button></a>
+                            <button onClick="deleteAspiration(${aspiration.id})">delete</button>
+                        </td>
+                    </tr>`
+                }
+                let html = $.parseHTML(htmlString)
+                $("#tabel-aspiration").append(html)
+            }
+        })
+
+        function deleteAspiration($id) {
+            $.ajax({
+            url : `http://127.0.0.1:8000/api/aspiration/delete/${$id}`,
+            method : "POST",
+            dataType : "json",
+            success : _ => {
+                console.log("success");
+                window.location.href="";
+        },
+        error: err => {
+            console.log(err)
+                }
+            }
+        )}
+    </script>
 @endsection

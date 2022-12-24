@@ -42,7 +42,7 @@
             </div>
 
         <img id="output">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button onclick="add()" class="btn btn-primary">Submit</button>
       </form>
 
       <script type="text/javascript">
@@ -62,5 +62,43 @@
         var output = document.getElementById('output');
         output.src = URL.createObjectURL(event.target.files[0]);
         };
+    </script>
+    <script>
+        function add() {
+
+
+            let name = $("#name").val()
+            let email = $("#email").val()
+            let address = $("#address").val()
+            let telephone = $("#telephone").val()
+            let message = $("#message").val()
+            let photo = $("#photo")[0].files[0]
+
+
+            if(name == "") return alert("nama tidak boleh kosong")
+            if(email == "") return alert("email tidak boleh kosong")
+            if(alamat == "") return alert("alamat tidak boleh kosong")
+            if(telephone == "") return alert("nomor telepon tidak boleh kosong")
+            if(message == "") return alert("pesan tidak boleh kosong")
+            if(photo == "") return alert("gambar tidak boleh kosong")
+
+            let fd = new FormData();
+            fd.append("name",name)
+            fd.append("email",email)
+            fd.append("alamat",alamat)
+            fd.append("telephone",telephone)
+            fd.append("photo",photo)
+            fd.append("message",message)
+            $.ajax({
+            url : "http://127.0.0.1:8000/api/aspiration",
+            method : "POST",
+            data : fd,
+            processData : false,
+            contentType : false,
+            success : _ => {
+                window.location.href = "http://127.0.0.1:8000/aspiration"
+            }
+            })
+        }
     </script>
 @endsection

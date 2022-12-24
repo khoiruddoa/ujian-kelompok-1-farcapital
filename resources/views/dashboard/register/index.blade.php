@@ -29,6 +29,36 @@
             <label for="password">Password</label>
             <input type="password" class="form-control" name="password" id="password" placeholder="masukkan password">
           </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button onclick="add()" class="btn btn-primary">Submit</button>
       </form>
+      <script>
+        function add() {
+
+            let name = $("#name").val()
+            let username = $("#username").val()
+            let email = $("#email").val()
+            let password = $("#password").val()
+
+            if(name == "") return alert("nama tidak boleh kosong")
+            if(username == "") return alert("username tidak boleh kosong")
+            if(email == "") return alert("email tidak boleh kosong")
+            if(password == "") return alert("password tidak boleh kosong")
+
+            let fd = new FormData();
+            fd.append("name",name)
+            fd.append("username",username)
+            fd.append("email",email)
+            fd.append("password",password)
+            $.ajax({
+            url : "http://127.0.0.1:8000/api/register",
+            method : "POST",
+            data : fd,
+            processData : false,
+            contentType : false,
+            success : _ => {
+                window.location.href = "http://127.0.0.1:8000/dashboard"
+            }
+            })
+        }
+    </script>
 @endsection
