@@ -1,9 +1,9 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\CaptchaServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +16,12 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
-Route::get('/', function () {
-    return view('home', [
-        "title" => "home",
-        'active' => 'home',
-    ]);
-});
+// Route::get('/', function () {
+//     return view('home', [
+//         "title" => "home",
+//         'active' => 'home',
+//     ]);
+// });
 
 Route::get('/about', function () {
     return view('about', [
@@ -41,3 +41,7 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/dashboard', function () {
     return view('dashboard.index');
 })->name('dashboard')->middleware('auth');
+
+Route::get('/contact-form', [CaptchaServiceController::class, 'index']);
+Route::post('/captcha-validation', [CaptchaServiceController::class, 'capthcaFormValidate']);
+Route::get('/reload-captcha', [CaptchaServiceController::class, 'reloadCaptcha']);
