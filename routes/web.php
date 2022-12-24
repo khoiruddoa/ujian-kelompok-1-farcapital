@@ -55,7 +55,7 @@ Route::get('/dashboard/aspiration', function () {
         "title" => "aspiration",
         'active' => 'aspiration',
     ]);
-})->name("aspiration");
+})->name("dashboard.aspiration");
 
 Route::get('/dashboard/aspiration/detail', function () {
     return view('dashboard.aspiration.detail', [

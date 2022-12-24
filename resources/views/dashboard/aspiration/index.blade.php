@@ -62,7 +62,7 @@
 
         function deleteAspiration($id) {
             $.ajax({
-            url : `http://127.0.0.1:8000/api/aspiration/${$id}/delete`,
+            url : `http://127.0.0.1:8000/api/aspiration/delete/${$id}`,
             method : "POST",
             dataType : "json",
             success : _ => {
