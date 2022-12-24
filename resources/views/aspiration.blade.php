@@ -1,6 +1,11 @@
 @extends('layouts.main')
 @section('container')
     <h1>Silahkan sampaikan aspirasi anda !</h1>
+
+    <form method="post" action="{{url('captcha-validation')}}">
+
+    @csrf
+
     <div class="form-group">
       <label for="nama">Nama</label>
       <input type="text" class="form-control" name="name" id="name" placeholder="masukkan nama">
@@ -35,12 +40,15 @@
                 </button>
             </div>
         </div>
+        
         <div class="form-group mb-4">
             <input id="captcha" type="text" class="form-control" placeholder="Enter Captcha" name="captcha">
         </div>
 
     <img id="output">
     <button onclick="add()" class="btn btn-primary">Submit</button>
+
+    </form>
 
       <script type="text/javascript">
     $('#reload').click(function () {
