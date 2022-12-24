@@ -91,8 +91,12 @@ class AspirationController extends Controller
      * @param  \App\Models\Aspiration  $aspiration
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
 
     public function update(Request $request, $id)
+=======
+    function update(Request $request, $id)
+>>>>>>> b9cd801 ((+)ubah fitur di aspiration controller)
     {
         $status = Aspiration::find($id);
 
