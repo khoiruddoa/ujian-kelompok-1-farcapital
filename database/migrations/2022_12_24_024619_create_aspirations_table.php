@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('email', 50);
             $table->text('address');
             $table->string('telephone', 15);
-            $table->string('photo');
+            $table->string('photo')->nullable(true);
             $table->text('message');
-            $table->boolean('is_read');
+            $table->boolean('is_read')->default(false);
             $table->timestamps();
         });
     }
