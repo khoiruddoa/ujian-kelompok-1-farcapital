@@ -27,17 +27,46 @@ Route::get('/about', function () {
     return view('about', [
         "title" => "about",
         'active' => 'about',
-        "name" => "khoiruddoa",
-        "email" => "khoiruddoa1995@gmail.com",
-        "image" => "khoiruddoa.jpeg"
     ]);
 });
+Route::get('/aspiration', function () {
+    return view('aspiration', [
+        "title" => "aspiration",
+        'active' => 'aspiration',
+    ]);
+})->name("aspiration");
 
-Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest'); //untuk user yang belum login
-Route::post('/login', [LoginController::class, 'authenticate']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/register', [RegisterController::class, 'index'])->name('logout')->middleware('guest');
-Route::post('/register', [RegisterController::class, 'store']);
+Route::get('/login', function () {
+    return view('login.index', [
+        "title" => "login",
+        'active' => 'login',
+    ]);
+})->name("login");
+
 Route::get('/dashboard', function () {
-    return view('dashboard.index');
-})->name('dashboard')->middleware('auth');
+    return view('dashboard.index', [
+        "title" => "dashboard",
+        'active' => 'dashboard',
+    ]);
+})->name("dashboard");
+
+Route::get('/dashboard/aspiration', function () {
+    return view('dashboard.aspiration.index', [
+        "title" => "aspiration",
+        'active' => 'aspiration',
+    ]);
+})->name("aspiration");
+
+Route::get('/dashboard/aspiration/create', function () {
+    return view('dashboard.aspiration.create', [
+        "title" => "create",
+        'active' => 'create',
+    ]);
+})->name("aspiration.create");
+
+Route::get('/dashboard/register', function () {
+    return view('dashboard.register.index', [
+        "title" => "register",
+        'active' => 'register',
+    ]);
+})->name("dashboard.register");

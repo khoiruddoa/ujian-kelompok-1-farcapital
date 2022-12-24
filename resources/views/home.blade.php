@@ -1,4 +1,5 @@
 @extends('layouts.main')
 @section('container')
-    <h1>Halaman About</h1>
+    <h1>Selamat Datang di Website Kota Bandung</h1>
+
 @endsection
