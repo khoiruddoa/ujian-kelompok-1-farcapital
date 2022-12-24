@@ -46,3 +46,8 @@ Route::get('/login', function () {
 Route::get('/dashboard', function () {
     return view('dashboard.index');
 })->name('dashboard')->middleware('auth');
+
+
+Route::get('/contact-form', [CaptchaServiceController::class, 'index']);
+Route::post('/captcha-validation', [CaptchaServiceController::class, 'capthcaFormValidate']);
+Route::get('/reload-captcha', [CaptchaServiceController::class, 'reloadCaptcha']);
