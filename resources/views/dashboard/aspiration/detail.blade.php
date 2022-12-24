@@ -15,18 +15,22 @@
         </div>
       </div>
     <script>
+        const token = localStorage.getItem('token');
         $.ajax({
-            url : "http://127.0.0.1:8000/api/aspiration/{{$id}}",
+            url : "http://127.0.0.1:8000/api/aspiration/{{ $id }}",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
             method : "GET",
             success : response => {
                 let aspiration = response.data
                 console.log(aspiration);
-                $("#photo").attr("src",`/storage/images/${aspiration.photo}`)
-                $("#name").val(aspiration.name)
-                $("#email").val(aspiration.email)
-                $("#address").val(aspiration.address)
-                $("#telephone").val(aspiration.telephone)
-                $("#message").val(aspiration.message)
+                $("#photo").attr("src",`${aspiration.photo}`)
+                $("#name").html(aspiration.name)
+                $("#email").html(aspiration.email)
+                $("#address").html(aspiration.address)
+                $("#telephone").html(aspiration.telephone)
+                $("#message").html(aspiration.message)
             }
         })
     </script>

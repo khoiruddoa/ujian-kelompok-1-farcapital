@@ -52,17 +52,18 @@ Route::get('/dashboard', function () {
     ]);
 })->name("dashboard");
 
-Route::get('/dashboard/aspiration', function () {
+Route::middleware('auth:api')->get('/dashboard/aspiration', function () {
     return view('dashboard.aspiration.index', [
         "title" => "aspiration",
         'active' => 'aspiration',
     ]);
 })->name("dashboard.aspiration");
 
-Route::get('/dashboard/aspiration/detail', function () {
+Route::get('/dashboard/aspiration/detail/{id}', function ($id) {
     return view('dashboard.aspiration.detail', [
         "title" => "detail",
         'active' => 'detail',
+        'id' => $id
     ]);
 })->name("aspiration.detail");
 

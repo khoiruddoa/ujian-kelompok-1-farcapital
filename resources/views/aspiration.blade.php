@@ -1,11 +1,7 @@
 @extends('layouts.main')
 @section('container')
     <h1>Silahkan sampaikan aspirasi anda !</h1>
-
-    <form method="post" action="{{url('captcha-validation')}}">
-
-    @csrf
-
+    <div style="color: red" class="" id="error"></div>
     <div class="form-group">
       <label for="nama">Nama</label>
       <input type="text" class="form-control" name="name" id="name" placeholder="masukkan nama">
@@ -77,6 +73,7 @@
             let address = $("#address").val()
             let telephone = $("#telephone").val()
             let message = $("#message").val()
+            let captcha = $("#captcha").val()
             let photo = $("#photo")[0].files[0]
 
 
@@ -85,25 +82,29 @@
             if(address == "") return alert("alamat tidak boleh kosong")
             if(telephone == "") return alert("nomor telepon tidak boleh kosong")
             if(message == "") return alert("pesan tidak boleh kosong")
-            if(photo == "") return alert("gambar tidak boleh kosong")
 
             let fd = new FormData();
             fd.append("name",name)
             fd.append("email",email)
             fd.append("address",address)
             fd.append("telephone",telephone)
-            fd.append("photo",photo)
+            if (photo) fd.append("photo",photo)
             fd.append("message",message)
+            fd.append("captcha",captcha)
             $.ajax({
-            url : "http://127.0.0.1:8000/api/aspiration",
-            method : "POST",
-            data : fd,
-            processData : false,
-            contentType : false,
-            success : _ => {
-                window.location.href = "http://127.0.0.1:8000/aspiration"
+              url : "http://127.0.0.1:8000/api/aspiration",
+              method : "POST",
+              data : fd,
+              processData : false,
+              contentType : false,
+              success : _ => {
+                  window.location.href = "http://127.0.0.1:8000/aspiration"
+                },
+              error: (err) => {
+                console.log(err);
+                console.log(...fd);
+                $('#error').html('Data tidak valid');
               },
-            error: (err) => console.log(err),
             })
         }
     </script>

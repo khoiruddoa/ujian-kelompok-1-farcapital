@@ -4,18 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-4">
 
-            @if (session()->has('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-            @if (session()->has('loginError'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ session('loginError') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
+            <div style="color: red" id="error"></div>
             <main class="form-signin w-100 m-auto">
                 <h1 class="h3 mb-3 fw-normal text-center">Please sign in</h1>
                 <div class="form-floating">
@@ -59,20 +48,11 @@
                     contentType: false,
                     success: (res) => {
                         localStorage.setItem('token', res.token);
-                        const req = new XMLHttpRequest();
-                        req.open('GET', 'http://localhost:8000/dashboard', true); //true means request will be async
-                        req.onreadystatechange = function (aEvt) {
-                            if (req.readyState == 4) {
-                                if(req.status == 200)
-                                //update your page here
-                                //req.responseText - is your result html or whatever you send as a response
-                                else alert("Error loading page\n");
-                            }
-                        };
-                        req.setRequestHeader('Authorization', 'Bearer ' + res.token);
-                        req.send();
+                        window.location.href = 'http://localhost:8000/dashboard/aspiration?token=' + res.token;
                     },
-                    error: (err) => console.log(err)
+                    error: (err) => {
+                        $("#error").html('Email atau password salah');
+                    }
                 });
             })
 

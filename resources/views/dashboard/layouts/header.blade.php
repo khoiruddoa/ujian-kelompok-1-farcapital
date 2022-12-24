@@ -7,12 +7,9 @@
     <div class="navbar-nav">
         <div class="nav-item text-nowrap">
 
-            <form action="/logout" method="post">
-                @csrf
-                <button type="submit" class="nav-link px-3 bg-dark border-0">
-                    Logout <span data-feather="log-out"></span>
-                </button>
-            </form>
+            <a href="http://localhost:8000/api/auth/logout" type="submit" class="nav-link px-3 bg-dark border-0">
+                Logout <span data-feather="log-out"></span>
+            </a>
         </div>
     </div>
 </header>
