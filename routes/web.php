@@ -1,9 +1,9 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\CaptchaServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +16,12 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
-Route::get('/', function () {
-    return view('home', [
-        "title" => "home",
-        'active' => 'home',
-    ]);
-});
+// Route::get('/', function () {
+//     return view('home', [
+//         "title" => "home",
+//         'active' => 'home',
+//     ]);
+// });
 
 Route::get('/about', function () {
     return view('about', [
@@ -44,29 +44,5 @@ Route::get('/login', function () {
 })->name("login");
 
 Route::get('/dashboard', function () {
-    return view('dashboard.index', [
-        "title" => "dashboard",
-        'active' => 'dashboard',
-    ]);
-})->name("dashboard");
-
-Route::get('/dashboard/aspiration', function () {
-    return view('dashboard.aspiration.index', [
-        "title" => "aspiration",
-        'active' => 'aspiration',
-    ]);
-})->name("aspiration");
-
-Route::get('/dashboard/aspiration/create', function () {
-    return view('dashboard.aspiration.create', [
-        "title" => "create",
-        'active' => 'create',
-    ]);
-})->name("aspiration.create");
-
-Route::get('/dashboard/register', function () {
-    return view('dashboard.register.index', [
-        "title" => "register",
-        'active' => 'register',
-    ]);
-})->name("dashboard.register");
+    return view('dashboard.index');
+})->name('dashboard')->middleware('auth');
