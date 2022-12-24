@@ -12,6 +12,7 @@
         "laravel/framework": "^9.11",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
+        "mews/captcha": "^3.2",
         "php-open-source-saver/jwt-auth": "^2.0"
     },
     "require-dev": {

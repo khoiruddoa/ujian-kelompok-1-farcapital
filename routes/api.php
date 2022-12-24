@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/aspiration", [AspirationController::class, "index"]);
 Route::get("/aspiration/{id}", [AspirationController::class, "show"]);
-Route::post("aspiration/", [AspirationController::class, "store"]);
+Route::post("/aspiration", [AspirationController::class, "store"]);
 Route::post("/aspiration/{id}", [AspirationController::class, "update"]);
 Route::get("/aspiration/delete/{id}", [AspirationController::class, "destroy"]);
 
