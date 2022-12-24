@@ -20,6 +20,7 @@
 <body>
     <div class="container mt-5">
         <h2>Form Pengaduan dan aspirasi</h2>
+        <p>Form untuk warga yang ingin menyampaikan saran, kritikan, pengaduan dan aspirasi.</p>
         
         @if ($errors->any())
         <div class="alert alert-danger">
