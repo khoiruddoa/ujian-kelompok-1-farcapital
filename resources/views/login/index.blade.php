@@ -57,6 +57,22 @@
                     data: fd,
                     processData: false,
                     contentType: false,
+                    success: (res) => {
+                        localStorage.setItem('token', res.token);
+                        const req = new XMLHttpRequest();
+                        req.open('GET', 'http://localhost:8000/dashboard', true); //true means request will be async
+                        req.onreadystatechange = function (aEvt) {
+                            if (req.readyState == 4) {
+                                if(req.status == 200)
+                                //update your page here
+                                //req.responseText - is your result html or whatever you send as a response
+                                else alert("Error loading page\n");
+                            }
+                        };
+                        req.setRequestHeader('Authorization', 'Bearer ' + res.token);
+                        req.send();
+                    },
+                    error: (err) => console.log(err)
                 });
             })
 
