@@ -44,29 +44,10 @@ Route::get('/login', function () {
 })->name("login");
 
 Route::get('/dashboard', function () {
-    return view('dashboard.index', [
-        "title" => "dashboard",
-        'active' => 'dashboard',
-    ]);
-})->name("dashboard");
+    return view('dashboard.index');
+})->name('dashboard')->middleware('auth');
 
-Route::get('/dashboard/aspiration', function () {
-    return view('dashboard.aspiration.index', [
-        "title" => "aspiration",
-        'active' => 'aspiration',
-    ]);
-})->name("aspiration");
 
-Route::get('/dashboard/aspiration/create', function () {
-    return view('dashboard.aspiration.create', [
-        "title" => "create",
-        'active' => 'create',
-    ]);
-})->name("aspiration.create");
-
-Route::get('/dashboard/register', function () {
-    return view('dashboard.register.index', [
-        "title" => "register",
-        'active' => 'register',
-    ]);
-})->name("dashboard.register");
+Route::get('/contact-form', [CaptchaServiceController::class, 'index']);
+Route::post('/captcha-validation', [CaptchaServiceController::class, 'capthcaFormValidate']);
+Route::get('/reload-captcha', [CaptchaServiceController::class, 'reloadCaptcha']);
