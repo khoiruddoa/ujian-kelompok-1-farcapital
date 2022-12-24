@@ -42,7 +42,6 @@
                 for(let aspiration of listAspiration) {
                     htmlString += `
                     <tr>
-                        <td>${ $loop->iteration }</td>
                         <td>
                             <img src="/storage/images/${aspiration.photo}" width="200" height="200">
                         </td>
