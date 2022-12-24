@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -68,5 +69,14 @@ class AuthController extends Controller
         ], 200);
         $response->withCookie(cookie('token', $token, 1440));
         return $response;
+    }
+
+    public function logout()
+    {
+        $removeToken = JWTAuth::invalidate(JWTAuth::getToken());
+
+        if($removeToken) {
+            return redirect('http://localhost:8000/login');
+        }
     }
 }

@@ -17,7 +17,9 @@ class AspirationController extends Controller
     public function index()
     { {
 
-            $aspirations = Aspiration::orderBy('created_at', 'DESC')->get();
+            $aspirations = Aspiration::orderBy('is_read', 'asc')
+                ->orderBy('created_at', 'DESC')
+                ->get();
 
             return response()->json([
 
@@ -43,7 +45,7 @@ class AspirationController extends Controller
             'email'     => 'required|email|max:50',
             'telephone'  => 'required|max:15',
             'address'      => 'required',
-            'photo' => 'image|file'
+            'captcha' => 'required|captcha'
         ]);
 
         //if validation fails
@@ -55,8 +57,8 @@ class AspirationController extends Controller
         if ($request->hasFile('photo')) {
             $photo = $request->file('photo');
             $filename = $photo->hashName();
-            $photo->storeAs('photo', $filename);
-            $payload['photo'] = $request->getSchemeAndHttpHost() . "/storage/photo/" . $filename;
+            $photo->move('photo', $filename);
+            $payload['photo'] = $request->getSchemeAndHttpHost() . "/photo/" . $filename;
         }
 
         $aspiration = Aspiration::create($payload);
@@ -77,42 +79,14 @@ class AspirationController extends Controller
     public function show($id)
     {
         $aspiration = Aspiration::find($id);
+        $aspiration->fill([
+            'is_read' => true,
+        ]);
+        $aspiration->save();
         return response()->json([
             'status' => true,
             'message' => 'show data buku',
             'data' => $aspiration
         ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Aspiration  $aspiration
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $status = Aspiration::find($id);
-
-        $status->fill($request->all());
-        $status->save();
-
-        return response()->json([
-            'status' => true,
-            'message' => 'berhasil update',
-
-        ]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Aspiration  $aspiration
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Aspiration $aspiration)
-    {
-        //
     }
 }

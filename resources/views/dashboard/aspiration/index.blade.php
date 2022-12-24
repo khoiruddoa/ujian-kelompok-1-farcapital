@@ -16,7 +16,6 @@
         <table class="table table-striped table-sm">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">photo</th>
                     <th scope="col">Name</th>
                     <th scope="col">Status</th>
@@ -29,8 +28,12 @@
         </table>
     </div>
     <script type="text/javascript">
+        const token = localStorage.getItem('token');
         $.ajax({
             url : "http://127.0.0.1:8000/api/aspiration",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
             method : "GET",
             dataType : "json",
             beforeSend : function() {
@@ -43,14 +46,13 @@
                     htmlString += `
                     <tr>
                         <td>
-                            <img src="/storage/images/${aspiration.photo}" width="200" height="200">
+                            <img src="${aspiration.photo}" width="200" height="200">
                         </td>
                         <td>${aspiration.name}</td>
-                        <td>${aspiration.status}</td>
+                        <td>${aspiration.is_read ? 'Dibaca' : 'Belum Dibaca'}</td>
                         <td>
-                            <a href="http://127.0.0.1:8000/dashboard/aspiration/detail/${aspiration.id}">
+                            <a href="http://127.0.0.1:8000/dashboard/aspiration/detail/${aspiration.id}/?token=${token}">
                                 <button>Detail</button></a>
-                            <button onClick="deleteAspiration(${aspiration.id})">delete</button>
                         </td>
                     </tr>`
                 }
@@ -62,6 +64,9 @@
         function deleteAspiration($id) {
             $.ajax({
             url : `http://127.0.0.1:8000/api/aspiration/delete/${$id}`,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
             method : "POST",
             dataType : "json",
             success : _ => {
