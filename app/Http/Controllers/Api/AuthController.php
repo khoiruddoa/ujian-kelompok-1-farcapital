@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -14,7 +15,6 @@ class AuthController extends Controller
         $payload = $request->all();
         $validator = Validator::make($payload, [
             'name' => 'required',
-            'username' => 'required|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8|confirmed'
         ]);
@@ -25,7 +25,6 @@ class AuthController extends Controller
 
         $user = User::create([
             'name' => $payload['name'],
-            'name' => $payload['username'],
             'email' => $payload['email'],
             'password' => bcrypt($payload['password'])
         ]);
@@ -40,5 +39,34 @@ class AuthController extends Controller
         return response()->json([
             'success' => false,
         ], 409);
+    }
+
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $credentials = $request->only('email', 'password');
+
+        if(!$token = auth()->guard('api')->attempt($credentials)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Wrong credentials!'
+            ], 401);
+        }
+
+        $response = new Response([
+            'success' => true,
+            'user' => auth()->guard('api')->user(),    
+            'token' => $token   
+        ], 200);
+        $response->withCookie(cookie('token', $token, 1440));
+        return $response;
     }
 }
